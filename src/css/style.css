@@ -1,0 +1,59 @@
+body {
+    color: #999;
+    max-width: 100%;
+   
+}
+
+.start-container {
+  display: flex;
+}
+
+.start-button {
+  margin-left: 10%;
+}
+
+.counter-container {
+  display: flex;
+
+}
+
+.counter {
+  margin: 2% 5% 2% 0; 
+  max-width: 50%;
+  padding: 2%;
+  border: solid 2px;
+  background-color: aquamarine;
+  font-size: xx-large;
+}
+
+.counter span {
+  color: red;
+}
+
+.container {
+  width: 800px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.hole {
+  width: 150px;
+  height: 150px;
+  margin-bottom: 20px;
+  margin-right: 20px;
+  background: gray;
+  border-radius: 50%;
+  cursor: url(../img/hammer-up.png), auto; 
+}
+
+.hole-bang {
+  cursor: url(../img/hammer-down.png), auto; 
+}
+
+.goblin-img {
+  display: block;
+  margin: auto;
+  margin-top: 15px;
+}
+
