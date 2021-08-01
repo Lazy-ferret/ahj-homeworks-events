@@ -1,4 +1,3 @@
-
 const goblinImg = document.createElement('img');
 goblinImg.src = './img/goblin.png';
 goblinImg.classList.add('goblin-img');
@@ -20,18 +19,17 @@ const position = function getRandom() {
   return Math.floor(Math.random() * holes.length);
 };
 
-function getTimer() {
-  clearInterval(timer);
-  timer = setInterval(changePosition, 1000)
-};
-
-
 function changePosition() {
   if (document.images) {
     const currentImgParent = document.images[0].parentElement;
     currentImgParent.removeChild(document.images[0]);
   }
   holes[position()].insertBefore(goblinImg, holes[position()].firstChild);
+}
+
+function getTimer() {
+  clearInterval(timer);
+  timer = setInterval(changePosition, 1000);
 }
 
 function GameStart() {
@@ -46,39 +44,35 @@ function GameStart() {
 }
 
 function GameStop() {
-  console.log('Game Stopped');
   clearInterval(timer);
   parentEl.appendChild(resultTitle);
 }
 
 holes.forEach((element) => {
   element.addEventListener('click', (e) => {
-    console.log('clicked')
     e.preventDefault();
     if (e.target.classList.contains('goblin-img')) {
       hitCount += 1;
-      console.log(hitCount)
       hit.textContent = hitCount;
       if (hitCount === 5) {
-        GameStop()
-        resultTitle.textContent = 'Победа! Поздравляю!'
+        GameStop();
+        resultTitle.textContent = 'Победа! Поздравляю!';
       }
-    }
-    else {
+    } else {
       missCount += 1;
       miss.textContent = missCount;
       if (missCount === 5) {
         GameStop();
-        resultTitle.textContent = 'Ты проиграл! Попробуй еще раз'
+        resultTitle.textContent = 'Ты проиграл! Попробуй еще раз';
       }
     }
-  })
-})
+  });
+});
 
 startBtn.addEventListener('click', (e) => {
   e.preventDefault();
   GameStart();
-})
+});
 
 // for demonstration purpose only;
 export default function demo(value) {
