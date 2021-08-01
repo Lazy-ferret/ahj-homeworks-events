@@ -73,8 +73,3 @@ startBtn.addEventListener('click', (e) => {
   e.preventDefault();
   GameStart();
 });
-
-// for demonstration purpose only;
-export default function demo(value) {
-  return value;
-}
