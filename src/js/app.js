@@ -13,30 +13,45 @@ const startBtn = document.querySelector('.start-button');
 const resultTitle = document.createElement('h2');
 const parentEl = document.querySelector('.start-title');
 
-let timer;
+let timerID;
+let position = 0;
 
-const position = function getRandom() {
-  return Math.floor(Math.random() * holes.length);
-};
+function getRandom() {
+  const num = Math.floor(Math.random() * holes.length);
+  if (num !== position) {
+    position = num;
+  } else {
+    getRandom();
+  }
+}
 
 function changePosition() {
+  getRandom();
   if (document.images) {
     const currentImgParent = document.images[0].parentElement;
     currentImgParent.removeChild(document.images[0]);
   }
-  holes[position()].insertBefore(goblinImg, holes[position()].firstChild);
+  holes[position].insertAdjacentElement('afterbegin', goblinImg);
 }
 
-function getTimer() {
-  clearInterval(timer);
-  timer = setInterval(changePosition, 1000);
-}
+const setTimer = () => {
+  changePosition();
+  timerID = setTimeout(() => {
+    setTimer();
+  }, 1000);
+};
+
+const clearTimer = () => {
+  if (timerID) {
+    clearTimeout(timerID);
+  }
+};
 
 function GameStart() {
   if (resultTitle.textContent) {
     parentEl.removeChild(resultTitle);
   }
-  getTimer();
+  setTimer();
   hitCount = 0;
   missCount = 0;
   hit.textContent = hitCount;
@@ -44,7 +59,7 @@ function GameStart() {
 }
 
 function GameStop() {
-  clearInterval(timer);
+  clearTimer();
   parentEl.appendChild(resultTitle);
 }
 
@@ -52,6 +67,8 @@ holes.forEach((element) => {
   element.addEventListener('click', (e) => {
     e.preventDefault();
     if (e.target.classList.contains('goblin-img')) {
+      clearTimer();
+      setTimer();
       hitCount += 1;
       hit.textContent = hitCount;
       if (hitCount === 5) {
